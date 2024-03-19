@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <div class="elements">
+  
+    </div>
+
+    <script>
+        async function getPosts() {
+            try {
+                const response = await axios.get('https://dummyjson.com/products');
+                const product = response.data.products;
+                const result = product.map(function (ele) {
+                    return `
+                        <div class='product'>
+                            <h2>${ele.title}</h2>
+                            <img src="${ele.thumbnail}">
+                            <p>${ele.price}$</p>
+                        </div>
+                    `;
+                }).join('');
+
+                document.querySelector('.elements').innerHTML = result;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        getPosts();
+    </script>
+</body>
+
+</html>
